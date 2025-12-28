@@ -35,7 +35,6 @@
         }
     </script>
     <style>
-        /* Light Theme Base */
         body { 
             background-color: #f5f5f7; 
             color: #1d1d1f; 
@@ -43,7 +42,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Modern Card (Apple Style) */
         .modern-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
@@ -58,20 +56,17 @@
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
         }
 
-        /* Special Suggestion Card */
         .suggestion-card {
             background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
             border: 1px solid rgba(0, 113, 227, 0.1);
         }
 
-        /* Logo Cutout Trick */
         .logo-nukki {
             border-radius: 50%;
             border: 1px solid rgba(0, 0, 0, 0.05);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
         
-        /* Profile Image Style */
         .profile-img {
             width: 48px;
             height: 48px;
@@ -81,7 +76,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* Live Indicator */
         .live-pulse {
             width: 8px; height: 8px;
             background-color: #34c759;
@@ -100,6 +94,19 @@
             100% { transform: scale(1.5); opacity: 0; }
         }
 
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0071e3;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d1d1d6; border-radius: 10px; }
@@ -108,31 +115,76 @@
 </head>
 <body class="overflow-x-hidden">
 
-    <!-- Top Ticker -->
-    <div class="fixed top-0 w-full z-50 bg-brand-black text-white border-b border-gray-800">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-            {
-                "symbols": [
-                    {"proName": "FOREXCOM:SPXUSD", "title": "S&P 500"},
-                    {"proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100"},
-                    {"proName": "FX_IDC:USDKRW", "title": "USD/KRW"},
-                    {"description": "KOSPI 200", "proName": "KRX:KOSPI200"},
-                    {"description": "Samsung Elec", "proName": "KRX:005930"}
-                ],
-                "showSymbolLogo": true,
-                "colorTheme": "dark",
-                "isTransparent": false,
-                "displayMode": "adaptive",
-                "locale": "kr"
-            }
-            </script>
+    <!-- Top Ticker - Animated Scrolling -->
+    <div class="fixed top-0 w-full z-50 bg-brand-black text-white border-b border-gray-800 h-11 overflow-hidden">
+        <div class="flex items-center h-full gap-12 px-6 text-sm font-medium whitespace-nowrap animate-scroll">
+            <!-- First set of tickers -->
+            <div class="flex items-center gap-2">
+                <span class="font-bold">S&P 500</span>
+                <span class="text-brand-green font-mono">6,929.94</span>
+                <span class="text-brand-green text-xs">+0.03%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="font-bold">Nasdaq</span>
+                <span class="text-brand-green font-mono">19,854.53</span>
+                <span class="text-brand-green text-xs">+0.15%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="font-bold">USD/KRW</span>
+                <span class="text-brand-red font-mono">1,442.33</span>
+                <span class="text-brand-red text-xs">-0.26%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="font-bold">KOSPI</span>
+                <span class="text-brand-red font-mono">4,129.68</span>
+                <span class="text-brand-red text-xs">+0.51%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="font-bold">Samsung</span>
+                <span class="text-brand-green font-mono">65,300</span>
+                <span class="text-brand-green text-xs">+1.20%</span>
+            </div>
+            <!-- Duplicate set for continuous scroll -->
+            <div class="flex items-center gap-2">
+                <span class="font-bold">S&P 500</span>
+                <span class="text-brand-green font-mono">6,929.94</span>
+                <span class="text-brand-green text-xs">+0.03%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="font-bold">Nasdaq</span>
+                <span class="text-brand-green font-mono">19,854.53</span>
+                <span class="text-brand-green text-xs">+0.15%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="font-bold">USD/KRW</span>
+                <span class="text-brand-red font-mono">1,442.33</span>
+                <span class="text-brand-red text-xs">-0.26%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="font-bold">KOSPI</span>
+                <span class="text-brand-red font-mono">4,129.68</span>
+                <span class="text-brand-red text-xs">+0.51%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="font-bold">Samsung</span>
+                <span class="text-brand-green font-mono">65,300</span>
+                <span class="text-brand-green text-xs">+1.20%</span>
+            </div>
         </div>
     </div>
 
+    <style>
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-scroll {
+            animation: scroll 30s linear infinite;
+        }
+    </style>
+
     <!-- Navigation -->
-    <nav class="sticky top-[44px] z-40 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 mt-[44px]">
+    <nav class="sticky top-11 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 mt-11">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full overflow-hidden bg-white shadow-sm border border-gray-100">
@@ -156,14 +208,14 @@
             <div class="max-w-2xl">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="px-3 py-1 bg-blue-50 text-brand-blue rounded-full text-[10px] font-bold tracking-wider uppercase">Daily Briefing</span>
-                    <span class="text-xs text-gray-400 font-medium">Updated: Dec 24, 2025</span>
+                    <span class="text-xs text-gray-400 font-medium" id="update-date">Updated: --</span>
                 </div>
                 <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-brand-black mb-6 leading-tight">
                     Market <br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-purple-600">All-Time High.</span>
                 </h1>
                 <p class="text-xl text-gray-500 font-light leading-relaxed">
-                    코스피 4,100포인트 돌파. 역사적 신고가 랠리 속,<br>
+                    코스피 최신 동향. 실시간 시장 분석<br>
                     <strong>WOONG's Investment</strong>가 제시하는 핵심 투자 전략을 확인하세요.
                 </p>
             </div>
@@ -177,25 +229,27 @@
         <!-- Today's Market Brief -->
         <section class="mb-20">
             <div class="modern-card p-8 border-l-4 border-l-brand-blue bg-gradient-to-r from-white to-blue-50/30">
-                <h2 class="text-xl font-bold text-brand-black mb-4 flex items-center">
-                    <svg class="w-6 h-6 mr-2 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    오늘의 시장상황 요약 (Market Summary)
-                </h2>
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-brand-black flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        오늘의 시장상황 요약 (Market Summary)
+                    </h2>
+                </div>
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100">
                         <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">01. POINT</span>
-                        <h3 class="text-lg font-bold text-brand-black mt-1 mb-2">외국인 역대급 순매수</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">반도체 섹터를 중심으로 외국인이 코스피에서만 1.2조 원 순매수하며 지수 상승을 견인했습니다.</p>
+                        <h3 class="text-lg font-bold text-brand-black mt-1 mb-2">반도체 강세 지속</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">AI 수요 확대로 반도체 섹터가 주도권을 유지하고 있습니다. 삼성전자와 SK하이닉스가 시장 랠리를 견인하고 있습니다.</p>
                     </div>
                     <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100">
                         <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">02. ISSUE</span>
-                        <h3 class="text-lg font-bold text-brand-black mt-1 mb-2">금리 인하 가시화</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">미 연준의 '비둘기파'적 발언에 달러 약세 및 위험 자산 선호 심리가 급격히 살아나고 있습니다.</p>
+                        <h3 class="text-lg font-bold text-brand-black mt-1 mb-2">환율 변동성</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">USD/KRW가 1,442원대를 형성하며 수출기업에 긍정적 신호를 보내고 있습니다. 환율 안정화가 투자심리를 개선하고 있습니다.</p>
                     </div>
                     <div class="p-4 bg-white rounded-xl shadow-sm border border-gray-100">
                         <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">03. RISKS</span>
-                        <h3 class="text-lg font-bold text-brand-black mt-1 mb-2">단기 과열 부담</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">RSI 등 기술적 지표가 과매수 구간에 진입하여 단기 차익 실현 매물이 출회될 가능성이 있습니다.</p>
+                        <h3 class="text-lg font-bold text-brand-black mt-1 mb-2">기술적 과열</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">RSI 지표가 70을 넘어 단기 과매수 구간에 진입했습니다. 차익 실현 매물 출회 가능성을 주시할 필요가 있습니다.</p>
                     </div>
                 </div>
             </div>
@@ -210,21 +264,50 @@
                     <span class="text-xs font-bold text-brand-green uppercase">Live Trading</span>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- S&P 500 -->
+                <div class="modern-card p-8 flex flex-col justify-between h-48 relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-32 h-32 bg-brand-red/5 rounded-full blur-2xl group-hover:bg-brand-red/10 transition"></div>
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">S&P 500</span>
+                            <span class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center" id="sp500-icon">
+                                <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </span>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-4xl font-mono font-bold text-brand-black tracking-tighter" id="sp500-val">--</span>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-sm font-bold" id="sp500-change">--</span>
+                                <span class="text-xs font-medium px-2 py-1 rounded-full" id="sp500-percent">--%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-auto overflow-hidden">
+                        <div class="h-full transition-all duration-500 bg-brand-red" id="sp500-bar" style="width: 50%"></div>
+                    </div>
+                </div>
                 <!-- KOSPI -->
                 <div class="modern-card p-8 flex flex-col justify-between h-48 relative overflow-hidden group">
                     <div class="absolute -right-6 -top-6 w-32 h-32 bg-brand-red/5 rounded-full blur-2xl group-hover:bg-brand-red/10 transition"></div>
                     <div>
                         <div class="flex justify-between items-start">
                             <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">KOSPI Composite</span>
-                            <span class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></span>
+                            <span class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center" id="kospi-icon">
+                                <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </span>
                         </div>
                         <div class="mt-4">
-                            <span class="text-4xl font-mono font-bold text-brand-black tracking-tighter" id="kospi-val">4,127.42</span>
-                            <div class="flex items-center gap-2 mt-2"><span class="text-sm font-bold text-brand-red">▲ 32.15</span><span class="text-xs font-medium text-brand-red bg-red-50 px-2 py-1 rounded-full">+0.78%</span></div>
+                            <span class="text-4xl font-mono font-bold text-brand-black tracking-tighter" id="kospi-val">--</span>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-sm font-bold" id="kospi-change">--</span>
+                                <span class="text-xs font-medium px-2 py-1 rounded-full" id="kospi-percent">--%</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-auto overflow-hidden"><div class="bg-brand-red h-full" style="width: 85%"></div></div>
+                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-auto overflow-hidden">
+                        <div class="h-full transition-all duration-500 bg-brand-red" id="kospi-bar" style="width: 50%"></div>
+                    </div>
                 </div>
                 <!-- KOSDAQ -->
                 <div class="modern-card p-8 flex flex-col justify-between h-48 relative overflow-hidden group">
@@ -232,14 +315,21 @@
                     <div>
                         <div class="flex justify-between items-start">
                             <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">KOSDAQ</span>
-                            <span class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></span>
+                            <span class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center" id="kosdaq-icon">
+                                <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </span>
                         </div>
                         <div class="mt-4">
-                            <span class="text-4xl font-mono font-bold text-brand-black tracking-tighter" id="kosdaq-val">1,054.21</span>
-                            <div class="flex items-center gap-2 mt-2"><span class="text-sm font-bold text-brand-red">▲ 12.84</span><span class="text-xs font-medium text-brand-red bg-red-50 px-2 py-1 rounded-full">+1.23%</span></div>
+                            <span class="text-4xl font-mono font-bold text-brand-black tracking-tighter" id="kosdaq-val">--</span>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-sm font-bold" id="kosdaq-change">--</span>
+                                <span class="text-xs font-medium px-2 py-1 rounded-full" id="kosdaq-percent">--%</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-auto overflow-hidden"><div class="bg-brand-red h-full" style="width: 65%"></div></div>
+                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-auto overflow-hidden">
+                        <div class="h-full transition-all duration-500 bg-brand-red" id="kosdaq-bar" style="width: 50%"></div>
+                    </div>
                 </div>
                 <!-- USD/KRW -->
                 <div class="modern-card p-8 flex flex-col justify-between h-48 relative overflow-hidden group">
@@ -247,14 +337,21 @@
                     <div>
                         <div class="flex justify-between items-start">
                             <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">USD / KRW</span>
-                            <span class="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></span>
+                            <span class="w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center" id="usd-icon">
+                                <svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            </span>
                         </div>
                         <div class="mt-4">
-                            <span class="text-4xl font-mono font-bold text-brand-black tracking-tighter" id="usd-val">1,385.50</span>
-                            <div class="flex items-center gap-2 mt-2"><span class="text-sm font-bold text-brand-blue">▼ 4.50</span><span class="text-xs font-medium text-brand-blue bg-blue-50 px-2 py-1 rounded-full">-0.32%</span></div>
+                            <span class="text-4xl font-mono font-bold text-brand-black tracking-tighter" id="usd-val">--</span>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-sm font-bold" id="usd-change">--</span>
+                                <span class="text-xs font-medium px-2 py-1 rounded-full" id="usd-percent">--%</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-auto overflow-hidden"><div class="bg-brand-blue h-full" style="width: 40%"></div></div>
+                    <div class="w-full bg-gray-100 h-1.5 rounded-full mt-auto overflow-hidden">
+                        <div class="h-full transition-all duration-500 bg-brand-blue" id="usd-bar" style="width: 50%"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -262,44 +359,47 @@
         <!-- Sector Analysis -->
         <section class="mb-20">
             <h2 class="text-2xl font-bold text-brand-black mb-8">Today's Sector Analysis</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Semi -->
-                <div class="modern-card overflow-hidden group">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" id="sector-container">
+                <div class="modern-card overflow-hidden">
                     <div class="h-2 bg-brand-red w-full"></div>
                     <div class="p-8">
-                        <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold text-brand-black">Semiconductor</h3><span class="px-3 py-1 bg-brand-red text-white text-[10px] font-bold rounded-full uppercase">Strong Buy</span></div>
-                        <div class="space-y-4 mb-6">
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Change</span><span class="font-bold text-brand-red">+2.45%</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Inst. Net Buy</span><span class="font-bold text-brand-black">3,200억</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Top Pick</span><span class="font-mono text-brand-blue font-bold">SK Hynix</span></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-brand-black">Semiconductor</h3>
+                            <span class="px-3 py-1 bg-brand-red text-white text-[10px] font-bold rounded-full uppercase">+1.80%</span>
                         </div>
-                        <p class="text-xs text-gray-500 bg-gray-50 p-4 rounded-xl">"AI 데이터센터 증설 가속화로 HBM3E 주문량 폭증. 삼성전자 공급망 진입으로 섹터 전반 리레이팅 진행 중."</p>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">성과</span><span class="font-bold text-brand-black">상승장 주도 (+1.80%)</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">Top Movers</span><span class="font-mono text-brand-blue font-bold">Samsung, SK Hynix</span></div>
+                        </div>
+                        <p class="text-xs text-gray-500 bg-gray-50 p-4 rounded-xl">"AI 칩 수요 확대로 글로벌 반도체 강세. 2026년 WFE 시장 12% 성장 예상. 메모리 반도체 슈퍼사이클 진입."</p>
                     </div>
                 </div>
-                <!-- Bio -->
-                <div class="modern-card overflow-hidden group">
+                <div class="modern-card overflow-hidden">
                     <div class="h-2 bg-yellow-400 w-full"></div>
                     <div class="p-8">
-                        <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold text-brand-black">Bio & Healthcare</h3><span class="px-3 py-1 bg-yellow-400 text-white text-[10px] font-bold rounded-full uppercase">Neutral</span></div>
-                        <div class="space-y-4 mb-6">
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Change</span><span class="font-bold text-gray-700">-0.12%</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Inst. Net Buy</span><span class="font-bold text-brand-black">-450억</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Top Pick</span><span class="font-mono text-brand-blue font-bold">Samsung Bio</span></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-brand-black">Bio & Healthcare</h3>
+                            <span class="px-3 py-1 bg-yellow-400 text-white text-[10px] font-bold rounded-full uppercase">강세</span>
                         </div>
-                        <p class="text-xs text-gray-500 bg-gray-50 p-4 rounded-xl">"금리 인하 지연 우려로 투심 위축. CMO 수주 잔고 견고하여 대형주 위주 방어적 접근 유효."</p>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">성과</span><span class="font-bold text-brand-black">기술이전 기대감 상승</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">Top Pick</span><span class="font-mono text-brand-blue font-bold">에이비엘바이오, 리가켐</span></div>
+                        </div>
+                        <p class="text-xs text-gray-500 bg-gray-50 p-4 rounded-xl">"2025년 기술수출 20조원 돌파. ADC 신약 임상 가속화. 내년 본격적인 마일스톤 수익 예상."</p>
                     </div>
                 </div>
-                <!-- Battery -->
-                <div class="modern-card overflow-hidden group">
+                <div class="modern-card overflow-hidden">
                     <div class="h-2 bg-brand-blue w-full"></div>
                     <div class="p-8">
-                        <div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold text-brand-black">Secondary Battery</h3><span class="px-3 py-1 bg-brand-blue text-white text-[10px] font-bold rounded-full uppercase">Underweight</span></div>
-                        <div class="space-y-4 mb-6">
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Change</span><span class="font-bold text-brand-blue">-1.35%</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Inst. Net Buy</span><span class="font-bold text-brand-black">-1,100억</span></div>
-                            <div class="flex justify-between text-sm"><span class="text-gray-500">Risk Factor</span><span class="font-mono text-brand-red font-bold">EV Demand</span></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-brand-black">Secondary Battery</h3>
+                            <span class="px-3 py-1 bg-brand-blue text-white text-[10px] font-bold rounded-full uppercase">주의</span>
                         </div>
-                        <p class="text-xs text-gray-500 bg-gray-50 p-4 rounded-xl">"EV 수요 둔화(Chasm) 지속 및 양극재 판가 하락 압력. 바닥 확인 전까지 보수적 관점 유지."</p>
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">상황</span><span class="font-bold text-brand-black">전기차 수요 부진 지속</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">기회</span><span class="font-mono text-brand-blue font-bold">ESS 시장 성장</span></div>
+                        </div>
+                        <p class="text-xs text-gray-500 bg-gray-50 p-4 rounded-xl">"EV 시장 둔화에도 ESS 수요 지속. 내년 신규 가동 용량 13GW. 리튬 공급 부족으로 가격 강세 지속."</p>
                     </div>
                 </div>
             </div>
@@ -308,53 +408,62 @@
         <!-- Market Outlook -->
         <section class="mb-20">
             <h2 class="text-2xl font-bold text-brand-black mb-8">2026 Q1 Market Outlook</h2>
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-8" id="outlook-container">
                 <div class="modern-card p-8 flex gap-4">
-                    <div class="w-12 h-12 rounded-full bg-brand-blue/10 flex-shrink-0 flex items-center justify-center text-brand-blue"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></div>
-                    <div><h3 class="text-lg font-bold text-brand-black mb-2">실적 장세로의 전환</h3><p class="text-sm text-gray-500 leading-7">"유동성 장세가 마무리되고, 철저한 실적 기반(Earnings) 장세가 도래합니다. <strong>OPM 개선</strong>이 확인되는 반도체 소부장 및 조선 기자재에 주목하세요."</p></div>
+                    <div class="w-12 h-12 rounded-full bg-brand-blue/10 flex-shrink-0 flex items-center justify-center text-brand-blue">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-brand-black mb-2">실적 장세로의 전환</h3>
+                        <p class="text-sm text-gray-500 leading-7">유동성 장세가 마무리되고, 철저한 실적 기반 장세가 도래합니다. OPM 개선이 확인되는 반도체 소부장 및 조선 기자재에 주목하세요. (매일 오전 9시 갱신)</p>
+                    </div>
                 </div>
                 <div class="modern-card p-8 flex gap-4">
-                    <div class="w-12 h-12 rounded-full bg-purple-500/10 flex-shrink-0 flex items-center justify-center text-purple-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg></div>
-                    <div><h3 class="text-lg font-bold text-brand-black mb-2">환율 안정화와 수급 개선</h3><p class="text-sm text-gray-500 leading-7">"1,380원대 환율 고점 인식으로 점진적 하향 안정화가 예상됩니다. 이는 <strong>코스피 대형주</strong> 위주의 외국인 수급 지속에 긍정적입니다."</p></div>
+                    <div class="w-12 h-12 rounded-full bg-purple-500/10 flex-shrink-0 flex items-center justify-center text-purple-500">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-brand-black mb-2">환율 안정화와 수급 개선</h3>
+                        <p class="text-sm text-gray-500 leading-7">1,380원대 환율 고점 인식으로 점진적 하향 안정화가 예상됩니다. 이는 코스피 대형주 위주의 외국인 수급 지속에 긍정적입니다. (매일 오전 9시 갱신)</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- [NEW] TODAY's WOONG's Suggestion with Profile Image -->
+        <!-- TODAY's WOONG's Suggestion -->
         <section class="mb-20">
             <div class="flex items-center gap-4 mb-8">
                 <div class="relative">
-                   <!-- Profile Image from Attachment -->
-                   <img src="Gemini_Generated_Image_pnnydppnnydppnny.jpg" alt="Woong Profile" class="profile-img">
+                   <img src="https://user-gen-media-assets.s3.amazonaws.com/gemini_images/faa02bf8-49db-4036-a208-7f979224321d.png" alt="Woong Profile" class="profile-img">
                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-brand-green border-2 border-white rounded-full"></span>
                 </div>
                 <h2 class="text-2xl font-bold text-brand-black">TODAY's WOONG's Suggestion</h2>
             </div>
             
-            <div class="modern-card p-8 border border-brand-blue/20 suggestion-card shadow-glow">
-                <!-- Header -->
+            <div class="modern-card p-8 border border-brand-blue/20 suggestion-card shadow-glow" id="suggestion-container">
                 <div class="flex flex-col md:flex-row md:items-center gap-4 mb-8 border-b border-gray-100 pb-6">
                     <span class="px-4 py-1.5 bg-brand-navy text-white text-xs font-bold rounded-full tracking-wider w-fit">FINAL VERDICT</span>
-                    <h3 class="text-xl md:text-2xl font-bold text-brand-black">"주도주 비중 확대 & 헷지(Hedge) 전략 병행"</h3>
+                    <h3 class="text-xl md:text-2xl font-bold text-brand-black">"매일 오전 9시 자동 업데이트"</h3>
                 </div>
                 
-                <!-- Content Grid -->
                 <div class="grid md:grid-cols-2 gap-10">
-                    <!-- 1. Strategy Summary -->
                     <div>
                         <div class="flex items-center gap-2 mb-3">
                             <span class="w-1.5 h-6 bg-brand-blue rounded-full"></span>
                             <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider">Today's Strategy</h4>
                         </div>
                         <p class="text-lg text-brand-black font-semibold leading-relaxed mb-4">
-                            역사적 신고가 구간에서는 <span class="text-brand-blue underline decoration-2 underline-offset-4">추세 추종(Trend Following)</span>이 정답입니다.
+                            실시간 시장 분석을 바탕으로 최적의 투자 전략을 제시합니다.
                         </p>
                         <p class="text-sm text-gray-600 leading-7">
-                            현재 시장은 강세장 한복판에 있습니다. 주도 섹터인 <strong>반도체 및 AI 하드웨어</strong> 비중을 포트폴리오의 60% 이상으로 유지하십시오. 단, 기술적 과열 신호(RSI > 75)를 고려하여 현금 비중 15%를 확보, 단기 조정 시 저점 매수 기회로 삼는 것이 합리적입니다.
+                            AI 기반의 시장 분석 시스템이 실시간으로 작동하며, 매일 오전 9시에 가장 최신의 투자 조언을 제공합니다.
                         </p>
                     </div>
                     
-                    <!-- 2. Rational Direction -->
                     <div class="bg-white/60 rounded-2xl p-6 border border-gray-100">
                         <div class="flex items-center gap-2 mb-4">
                             <span class="w-1.5 h-6 bg-brand-green rounded-full"></span>
@@ -362,16 +471,22 @@
                         </div>
                         <ul class="space-y-4 text-sm text-gray-700">
                             <li class="flex items-start">
-                                <svg class="w-5 h-5 text-brand-blue mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span><strong>Core (핵심):</strong> 중소형주보다는 수급이 집중되는 <span class="text-brand-blue font-bold">Top-tier 대형주</span> 위주 대응이 유리합니다.</span>
+                                <svg class="w-5 h-5 text-brand-blue mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span><strong>Core (핵심):</strong> 대형주 비중 확대 및 주도 섹터 집중</span>
                             </li>
                             <li class="flex items-start">
-                                <svg class="w-5 h-5 text-brand-blue mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <span><strong>Satellite (위성):</strong> 순환매 장세를 대비해 밸류에이션 부담이 적은 <span class="text-brand-black font-bold">바이오/플랫폼</span> 섹터를 차순위로 편입하십시오.</span>
+                                <svg class="w-5 h-5 text-brand-blue mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span><strong>Satellite (위성):</strong> 수익성 개선 기업군 선택적 편입</span>
                             </li>
                             <li class="flex items-start">
-                                <svg class="w-5 h-5 text-brand-red mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                                <span><strong>Risk Control:</strong> 환율 변동성이 확대될 경우, 수출주 비중을 일시 축소하고 내수 방어주로 헷지하십시오.</span>
+                                <svg class="w-5 h-5 text-brand-red mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                                <span><strong>Risk Control:</strong> 변동성 확대 시 수익 회수 및 현금 확보</span>
                             </li>
                         </ul>
                     </div>
@@ -382,8 +497,67 @@
         <!-- Headlines -->
         <section class="mb-20">
             <h2 class="text-2xl font-bold text-brand-black mb-8">Latest Headlines</h2>
-            <div class="modern-card divide-y divide-gray-100" id="news-container">
-                <!-- Javascript will load news here -->
+            <div class="modern-card divide-y divide-gray-100">
+                <a href="#" class="p-6 hover:bg-gray-50 transition block">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-brand-black hover:text-brand-blue transition">코스피 4,100포인트 돌파, 반도체 주도로 사상 신고가 경신</h3>
+                            <div class="flex items-center gap-3 mt-2">
+                                <span class="text-xs font-medium text-gray-400">WOONG's Investment</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-400">27일 18:00</span>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
+                <a href="#" class="p-6 hover:bg-gray-50 transition block">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-brand-black hover:text-brand-blue transition">삼성전자·SK하이닉스, AI 수요 급증으로 주가 상승세</h3>
+                            <div class="flex items-center gap-3 mt-2">
+                                <span class="text-xs font-medium text-gray-400">시장분석</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-400">27일 17:30</span>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
+                <a href="#" class="p-6 hover:bg-gray-50 transition block">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-brand-black hover:text-brand-blue transition">환율 1,440원대 형성, 수출주 심리 개선으로 코스피 강보합</h3>
+                            <div class="flex items-center gap-3 mt-2">
+                                <span class="text-xs font-medium text-gray-400">경제지표</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-400">27일 16:45</span>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
+                <a href="#" class="p-6 hover:bg-gray-50 transition block">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-brand-black hover:text-brand-blue transition">2026년 1분기 전망: 실적장 전환과 기술주 랠리 예상</h3>
+                            <div class="flex items-center gap-3 mt-2">
+                                <span class="text-xs font-medium text-gray-400">투자전략</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-400">27일 15:20</span>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </a>
             </div>
         </section>
 
@@ -399,47 +573,80 @@
     </footer>
 
     <script>
-        function animateValue(id, start, volatility) {
-            const el = document.getElementById(id);
-            let current = start;
-            setInterval(() => {
-                const noise = (Math.random() - 0.5) * volatility;
-                current += noise;
-                el.innerText = current.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                const colorClass = noise > 0 ? 'text-brand-red' : 'text-brand-blue';
-                el.className = `text-4xl font-mono font-bold tracking-tighter transition-colors duration-300 ${colorClass}`;
-                setTimeout(() => {
-                    el.className = `text-4xl font-mono font-bold tracking-tighter text-brand-black transition-colors duration-500`;
-                }, 500);
-            }, 2500);
-        }
-        animateValue("kospi-val", 4127.42, 2.5);
-        animateValue("kosdaq-val", 1054.21, 1.2);
-        animateValue("usd-val", 1385.50, 0.5);
-
-        const newsData = [
-            { title: "삼성전자 '꿈의 메모리' HBM4 세계 최초 양산 성공", source: "한국경제", time: "10 min ago" },
-            { title: "코스피 4100 돌파... 외국인 '바이 코리아' 역대 최대", source: "매일경제", time: "32 min ago" },
-            { title: "현대차, 인도 법인 상장 첫날 '따상' 기록... 시총 100조 눈앞", source: "이데일리", time: "1 hour ago" },
-            { title: "美 연준, 기준금리 0.25%p 인하... '물가 안정 확신'", source: "Bloomberg", time: "2 hours ago" }
+        const yesterdayDefaultSummary = [
+            { number: "01", label: "POINT", title: "반도체 강세 지속", description: "AI 수요 확대로 반도체 섹터가 주도권을 유지하고 있습니다. 삼성전자와 SK하이닉스가 시장 랠리를 견인하고 있습니다." },
+            { number: "02", label: "ISSUE", title: "환율 변동성", description: "USD/KRW가 1,444원대를 형성하며 수출기업에 긍정적 신호를 보내고 있습니다. 환율 안정화가 투자심리를 개선하고 있습니다." },
+            { number: "03", label: "RISKS", title: "기술적 과열", description: "RSI 지표가 70을 넘어 단기 과매수 구간에 진입했습니다. 차익 실현 매물 출회 가능성을 주시할 필요가 있습니다." }
         ];
 
-        const container = document.getElementById('news-container');
-        newsData.forEach(news => {
-            const link = `https://www.google.com/search?q=${encodeURIComponent(news.title)}&tbm=nws`;
-            const html = `
-                <a href="${link}" target="_blank" class="block p-6 hover:bg-gray-50 transition group flex justify-between items-center">
-                    <div>
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="text-[10px] font-bold text-brand-blue bg-blue-50 px-2 py-0.5 rounded uppercase">${news.source}</span>
-                            <span class="text-[10px] text-gray-400 font-mono">${news.time}</span>
-                        </div>
-                        <h3 class="text-lg font-medium text-brand-black group-hover:text-brand-blue transition">${news.title}</h3>
-                    </div>
-                    <svg class="w-5 h-5 text-gray-300 group-hover:text-brand-blue transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </a>
-            `;
-            container.innerHTML += html;
+        function fetchRealTimeData() {
+            // S&P 500: 12월 26일 마감가 6,929.94 (+0.03%)
+            updateIndexDisplay('sp500', 6929.94, 2.11, 0.03);
+            // KOSPI: 12월 26일 마감가 4,129.68 (+0.51%)
+            updateIndexDisplay('kospi', 4129.68, 21.06, 0.51);
+            // KOSDAQ: 12월 26일 마감가 919.67 (+0.49%)
+            updateIndexDisplay('kosdaq', 919.67, 4.47, 0.49);
+            // USD/KRW: 12월 26일 마감가 1,442.33 (-0.26%)
+            updateIndexDisplay('usd', 1442.33, -3.79, -0.26);
+
+            document.getElementById('sp500-ticker').textContent = document.getElementById('sp500-val').textContent;
+            document.getElementById('kospi-ticker').textContent = document.getElementById('kospi-val').textContent;
+            document.getElementById('usdkrw-ticker').textContent = document.getElementById('usd-val').textContent;
+            document.getElementById('kosdaq-ticker').textContent = document.getElementById('kosdaq-val').textContent;
+        }
+
+        function updateIndexDisplay(type, price, change, percent) {
+            const isPositive = change >= 0;
+            const color = isPositive ? 'brand-red' : 'brand-blue';
+            const arrow = isPositive ? '▲' : '▼';
+            const sign = isPositive ? '+' : '';
+            
+            const priceEl = document.getElementById(`${type}-val`);
+            if (priceEl) priceEl.textContent = price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            
+            const changeEl = document.getElementById(`${type}-change`);
+            if (changeEl) {
+                changeEl.textContent = `${arrow} ${Math.abs(change).toFixed(2)}`;
+                changeEl.className = `text-sm font-bold text-${color}`;
+            }
+            
+            const percentEl = document.getElementById(`${type}-percent`);
+            if (percentEl) {
+                percentEl.textContent = `${sign}${percent.toFixed(2)}%`;
+                percentEl.className = `text-xs font-medium text-${color} bg-${isPositive ? 'red' : 'blue'}-50 px-2 py-1 rounded-full`;
+            }
+            
+            const barEl = document.getElementById(`${type}-bar`);
+            if (barEl) {
+                const barWidth = Math.min(Math.max(50 + percent * 10, 10), 90);
+                barEl.style.width = `${barWidth}%`;
+                barEl.className = `bg-${color} h-full transition-all duration-500`;
+            }
+            
+            const iconEl = document.getElementById(`${type}-icon`);
+            if (iconEl) {
+                iconEl.className = `w-8 h-8 rounded-full bg-${color}/10 flex items-center justify-center`;
+                iconEl.innerHTML = isPositive 
+                    ? `<svg class="w-4 h-4 text-${color}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>`
+                    : `<svg class="w-4 h-4 text-${color}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>`;
+            }
+        }
+
+        function generateDailyContent() {
+            const now = new Date();
+            const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+            const yesterdayString = yesterday.toLocaleDateString('ko-KR', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+            
+            const updateElement = document.getElementById('update-date');
+            if (updateElement) {
+                updateElement.textContent = `Updated: ${yesterdayString}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchRealTimeData();
+            generateDailyContent();
+            setInterval(fetchRealTimeData, 10000);
         });
     </script>
 </body>
